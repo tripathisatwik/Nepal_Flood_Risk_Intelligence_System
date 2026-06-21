@@ -1,0 +1,16 @@
+pandas
+numpy
+openpyxl
+
+fastapi
+uvicorn
+
+sqlalchemy
+psycopg2-binary
+
+plotly
+dash
+dash-leaflet
+
+python-dotenv
+requests

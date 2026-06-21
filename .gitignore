@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment Variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Airflow
+airflow/logs/
+airflow/plugins/__pycache__/
+airflow/airflow.db
+
+# Docker
+postgres_data/
+
+# Datasets
+data/raw/
+data/external/
+
+# Model files
+models/saved/
+*.pkl
+*.joblib
+*.json
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+
+# Temporary
+temp/
+tmp/
