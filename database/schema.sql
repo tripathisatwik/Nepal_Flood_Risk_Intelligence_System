@@ -271,3 +271,42 @@ ON heavy_rainfall_incidents(incident_date);
 
 CREATE INDEX idx_heavy_rainfall_district
 ON heavy_rainfall_incidents(district_id);
+
+CREATE TABLE IF NOT EXISTS training_features (
+    feature_id SERIAL PRIMARY KEY,
+
+    district_id INTEGER NOT NULL,
+    record_date DATE NOT NULL,
+
+    rainfall_mm DOUBLE PRECISION,
+    rainfall_3d_mm DOUBLE PRECISION,
+    rainfall_7d_mm DOUBLE PRECISION,
+
+    temp_max_c DOUBLE PRECISION,
+    temp_min_c DOUBLE PRECISION,
+    humidity_pct DOUBLE PRECISION,
+    wind_ms DOUBLE PRECISION,
+
+    discharge_m3s DOUBLE PRECISION,
+    discharge_change_3d DOUBLE PRECISION,
+
+    elevation_m DOUBLE PRECISION,
+
+    flood_last_30d INTEGER DEFAULT 0,
+    flood_last_365d INTEGER DEFAULT 0,
+
+    heavy_rain_last_7d INTEGER DEFAULT 0,
+    heavy_rain_last_30d INTEGER DEFAULT 0,
+
+    days_since_last_flood INTEGER,
+
+    season_encoded INTEGER,
+
+    fii DOUBLE PRECISION,
+
+    risk_label VARCHAR(20),
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE(district_id, record_date)
+);
