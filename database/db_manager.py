@@ -1,15 +1,9 @@
 from pathlib import Path
-
+import pandas as pd
 from sqlalchemy import text
-
 from database.db_connection import DatabaseConnection
 
-
 class DatabaseManager:
-    """
-    Creates database tables
-    and performs basic checks.
-    """
 
     def __init__(self):
         self.engine = DatabaseConnection().get_engine()
@@ -32,3 +26,27 @@ class DatabaseManager:
 
             for row in result:
                 print(row[0])
+
+    def execute_query(self, query, params=None):
+        with self.engine.connect() as connection:
+            connection.execute(text(query), params or {})
+            connection.commit()
+
+    def fetch_all(self, query, params=None):
+        with self.engine.connect() as connection:
+            result = connection.execute(text(query), params or {})
+            return result.fetchall()
+
+    def fetch_one(self, query, params=None):
+        with self.engine.connect() as connection:
+            result = connection.execute(text(query), params or {})
+            return result.fetchone()
+
+    def read_query(self, query):
+        with self.engine.connect() as connection:
+            return pd.read_sql(query, connection)
+
+    def execute_query(self, query):
+           with self.engine.connect() as connection:
+            connection.execute(text(query))
+            connection.commit()
