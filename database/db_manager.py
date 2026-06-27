@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 from sqlalchemy import text
 from database.db_connection import DatabaseConnection
+import pandas as pd
 
 class DatabaseManager:
 
@@ -50,3 +51,20 @@ class DatabaseManager:
            with self.engine.connect() as connection:
             connection.execute(text(query))
             connection.commit()
+
+    def write_dataframe(self,dataframe,table_name):
+        dataframe.to_sql(
+            table_name,
+            self.engine,
+            if_exists="append",
+            index=False,
+            method="multi",
+            chunksize=5000
+        )       
+
+    def fetch_dataframe(self,query):
+
+        return pd.read_sql(
+            query,
+            self.engine
+        )
